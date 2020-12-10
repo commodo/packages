@@ -32,7 +32,7 @@ define Package/python3-django-postoffice
   URL:=https://github.com/ui/django-post_office
   DEPENDS:= \
 	+python3 \
-	+python3-django1 \
+	+python3-django2 \
 	+python3-django-jsonfield2
 endef
 

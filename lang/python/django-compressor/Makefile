@@ -31,7 +31,7 @@ define Package/python3-django-compressor
   URL:=https://django-compressor.readthedocs.io
   DEPENDS:= \
 	+python3 \
-	+python3-django1 \
+	+python3-django2 \
 	+python3-django-appconf \
 	+python3-rcssmin
 endef

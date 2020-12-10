@@ -7,12 +7,12 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=django1
-PKG_VERSION:=1.11.29
-PKG_RELEASE:=4
+PKG_NAME:=django2
+PKG_VERSION:=2.2.17
+PKG_RELEASE:=1
 
 PYPI_NAME:=Django
-PKG_HASH:=4200aefb6678019a0acf0005cd14cfce3a5e6b9b90d06145fcdd2e474ad4329c
+PKG_HASH:=cf5370a4d7765a9dd6d42a7b96b53c74f9446cd38209211304b210fe0404b861
 
 PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
@@ -23,7 +23,7 @@ include ../pypi.mk
 include $(INCLUDE_DIR)/package.mk
 include ../python3-package.mk
 
-define Package/python3-django1
+define Package/python3-django2
   SUBMENU:=Python
   SECTION:=lang
   CATEGORY:=Languages
@@ -31,20 +31,21 @@ define Package/python3-django1
   URL:=https://www.djangoproject.com/
   DEPENDS:= \
 	+python3 \
-	+python3-pytz
+	+python3-pytz \
+	+python3-sqlparse
   PROVIDES:=django
 endef
 
-define Package/python3-django1/description
-  The web framework for perfectionists with deadlines (LTS 1.11 series).
+define Package/python3-django2/description
+  The web framework for perfectionists with deadlines (LTS 2.2 series).
 endef
 
-define Py3Package/python3-django1/install
+define Py3Package/python3-django2/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/django-admin.py \
 		$(1)/usr/bin/django-admin
 endef
 
-$(eval $(call Py3Package,python3-django1))
-$(eval $(call BuildPackage,python3-django1))
-$(eval $(call BuildPackage,python3-django1-src))
+$(eval $(call Py3Package,python3-django2))
+$(eval $(call BuildPackage,python3-django2))
+$(eval $(call BuildPackage,python3-django2-src))

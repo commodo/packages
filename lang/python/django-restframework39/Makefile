@@ -30,7 +30,7 @@ define Package/python3-django-restframework39
   URL:=https://www.django-rest-framework.org
   DEPENDS:= \
 	+python3 \
-	+python3-django1
+	+python3-django2
   CONFLICTS:=python3-django-restframework
 endef
 
