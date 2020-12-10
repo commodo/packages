@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=seafile-seahub
-PKG_VERSION:=7.1.5
+PKG_VERSION:=8.0.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/haiwen/seahub/tar.gz/v$(PKG_VERSION)-server?
-PKG_HASH:=cc7f5a1642d203b2390ae3c30c8a5546d1e829d9d1a5ddf686e558292746ce5c
+PKG_HASH:=fabb71ca79090689b388c5e33edbd09dd3fac1cde3979ddb842d2e6fc3ab0c2a
 
 PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>, Jeffery To <jeffery.to@gmail.com>
 PKG_LICENSE:=Apache-2.0
@@ -40,7 +40,7 @@ define Package/seafile-seahub
     +python3-chardet \
     +python3-cryptodome \
     +python3-dateutil \
-    +python3-django1 \
+    +python3-django2 \
     +python3-django-formtools \
     +python3-django-picklefield \
     +python3-django-postoffice \
