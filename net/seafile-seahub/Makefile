@@ -44,7 +44,7 @@ define Package/seafile-seahub
     +python3-django-formtools \
     +python3-django-picklefield \
     +python3-django-postoffice \
-    +python3-django-restframework39 \
+    +python3-django-restframework \
     +python3-django-simple-captcha \
     +python3-django-statici18n \
     +python3-django-webpack-loader \
