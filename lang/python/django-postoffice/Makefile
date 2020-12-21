@@ -7,14 +7,13 @@
 
 include $(TOPDIR)/rules.mk
 
-# Please do not update: 3.3.0 is the last version compatible with Django 1.11
 PKG_NAME:=django-postoffice
-PKG_VERSION:=3.3.0
+PKG_VERSION:=3.5.3
 PKG_RELEASE:=1
 
 PYPI_NAME:=django-post-office
 PYPI_SOURCE_NAME:=django-post_office
-PKG_HASH:=b06514da601c22e955bd93a4ac6dd6b2218c571ca67c193e62bd1f22cec7536f
+PKG_HASH:=1454823691e7f323768e1e19f018590ca47890681ac72e5eee9cbac838ee04df
 
 PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
 PKG_LICENSE:=MIT
