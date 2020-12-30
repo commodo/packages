@@ -1,6 +1,6 @@
 --- a/scripts/setup-seafile-mysql.py
 +++ b/scripts/setup-seafile-mysql.py
-@@ -1543,7 +1543,6 @@ def main():
+@@ -1520,7 +1520,6 @@ def main():
      seahub_config.do_syncdb()
      seahub_config.prepare_avatar_dir()
      # db_config.create_seahub_admin()
@@ -10,7 +10,7 @@
  
 --- a/scripts/setup-seafile.sh
 +++ b/scripts/setup-seafile.sh
-@@ -689,17 +689,6 @@ fi
+@@ -700,17 +700,6 @@ fi
  # /data/haiwen/
  #            -- seafile-server-2.0.4
  #            -- seafile-server-latest # symlink to 2.0.4

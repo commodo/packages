@@ -11,30 +11,6 @@
      check_component_running "fileserver" "fileserver -c ${default_ccnet_conf_dir}"
      check_component_running "seafdav" "wsgidav.server.server_cli"
  }
---- a/scripts/seafile.sh
-+++ b/scripts/seafile.sh
-@@ -107,8 +107,8 @@ function validate_already_running () {
-         exit 1;
-     fi
- 
--    check_component_running "ccnet-server" "ccnet-server -c ${default_ccnet_conf_dir}"
--    check_component_running "seaf-server" "seaf-server -c ${default_ccnet_conf_dir}"
-+    check_component_running "ccnet-server" "ccnet-server -F ${central_config_dir} -c ${default_ccnet_conf_dir}"
-+    check_component_running "seaf-server" "seaf-server -F ${central_config_dir} -c ${default_ccnet_conf_dir}"
-     check_component_running "fileserver" "fileserver -c ${default_ccnet_conf_dir}"
-     check_component_running "seafdav" "wsgidav.server.server_cli"
- }
-@@ -149,8 +149,8 @@ function stop_seafile_server () {
- 
-     echo "Stopping seafile server ..."
-     pkill -SIGTERM -f "seafile-controller -c ${default_ccnet_conf_dir}"
--    pkill -f "ccnet-server -c ${default_ccnet_conf_dir}"
--    pkill -f "seaf-server -c ${default_ccnet_conf_dir}"
-+    pkill -f "ccnet-server -F ${central_config_dir} -c ${default_ccnet_conf_dir}"
-+    pkill -f "seaf-server -F ${central_config_dir} -c ${default_ccnet_conf_dir}"
-     pkill -f "fileserver -c ${default_ccnet_conf_dir}"
-     pkill -f "soffice.*--invisible --nocrashreport"
-     pkill -f  "wsgidav.server.server_cli"
 --- a/scripts/seahub.sh
 +++ b/scripts/seahub.sh
 @@ -94,10 +94,10 @@ function validate_seafile_data_dir () {

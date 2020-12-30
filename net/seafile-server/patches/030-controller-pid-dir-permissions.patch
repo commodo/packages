@@ -1,6 +1,6 @@
 --- a/controller/seafile-controller.c
 +++ b/controller/seafile-controller.c
-@@ -516,7 +516,7 @@ init_pidfile_path (SeafileController *ct
+@@ -480,7 +480,7 @@ init_pidfile_path (SeafileController *ct
          pid_dir = g_build_filename (topdir, "pids", NULL);
      }
      if (!g_file_test(pid_dir, G_FILE_TEST_EXISTS)) {

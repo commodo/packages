@@ -6,7 +6,7 @@
  pcfiles = libseafile.pc
  pkgconfig_DATA = $(pcfiles)
  pkgconfigdir = $(libdir)/pkgconfig
-@@ -56,7 +58,7 @@ rpc_table.stamp: ${top_srcdir}/lib/rpc_t
+@@ -55,7 +57,7 @@ rpc_table.stamp: ${top_srcdir}/lib/rpc_t
  	@rm -f rpc_table.tmp
  	@touch rpc_table.tmp
  	@echo "[libsearpc]: generating rpc header files"
@@ -15,7 +15,7 @@
  	@echo "[libsearpc]: done"
  	@mv -f rpc_table.tmp $@
  
-@@ -82,5 +84,5 @@ install-data-local:
+@@ -81,5 +83,5 @@ install-data-local:
  if MACOS
  	sed -i '' -e "s|(DESTDIR)|${DESTDIR}|g" $(pcfiles)
  else

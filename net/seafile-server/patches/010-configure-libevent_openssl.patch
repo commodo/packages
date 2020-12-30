@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -219,7 +219,7 @@ PKG_CHECK_MODULES(JANSSON, [jansson >= $
+@@ -217,7 +217,7 @@ PKG_CHECK_MODULES(JANSSON, [jansson >= $
  AC_SUBST(JANSSON_CFLAGS)
  AC_SUBST(JANSSON_LIBS)
  

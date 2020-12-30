@@ -1,22 +1,6 @@
---- a/common/seaf-utils.c
-+++ b/common/seaf-utils.c
-@@ -238,7 +238,12 @@ create_ccnet_rpc_client ()
-     SearpcNamedPipeClient *transport = NULL;
-     char *pipe_path = NULL;
- 
--    pipe_path = g_build_path ("/", seaf->ccnet_dir, CCNET_RPC_PIPE_NAME, NULL);
-+    char *socket_dir = g_strdup (g_getenv ("SEAFILE_UCI_SOCKET_DIR"));
-+    if (!socket_dir) {
-+        socket_dir = g_strdup (seaf->ccnet_dir);
-+    }
-+    pipe_path = g_build_path ("/", socket_dir, CCNET_RPC_PIPE_NAME, NULL);
-+    g_free (socket_dir);
-     transport = searpc_create_named_pipe_client(pipe_path);
-     g_free(pipe_path);
-     if (!transport)
 --- a/controller/seafile-controller.c
 +++ b/controller/seafile-controller.c
-@@ -511,7 +511,10 @@ stop_services ()
+@@ -475,7 +475,10 @@ stop_services ()
  static void
  init_pidfile_path (SeafileController *ctl)
  {
@@ -28,7 +12,7 @@
      if (!g_file_test(pid_dir, G_FILE_TEST_EXISTS)) {
          if (g_mkdir(pid_dir, 0777) < 0) {
              seaf_warning("failed to create pid dir %s: %s", pid_dir, strerror(errno));
-@@ -523,6 +526,8 @@ init_pidfile_path (SeafileController *ct
+@@ -486,6 +489,8 @@ init_pidfile_path (SeafileController *ct
      ctl->pidfile[PID_SERVER] = g_build_filename (pid_dir, "seaf-server.pid", NULL);
      ctl->pidfile[PID_SEAFDAV] = g_build_filename (pid_dir, "seafdav.pid", NULL);
      ctl->pidfile[PID_SEAFEVENTS] = g_build_filename (pid_dir, "seafevents.pid", NULL);
@@ -37,7 +21,7 @@
  }
  
  static int
-@@ -545,7 +550,10 @@ seaf_controller_init (SeafileController
+@@ -508,7 +513,10 @@ seaf_controller_init (SeafileController
  
      if (logdir == NULL) {
          char *topdir = g_path_get_dirname(config_dir);
@@ -49,7 +33,7 @@
          if (checkdir_with_mkdir(logdir) < 0) {
              fprintf (stderr, "failed to create log folder \"%s\": %s\n",
                       logdir, strerror(errno));
-@@ -554,10 +562,15 @@ seaf_controller_init (SeafileController
+@@ -517,10 +525,15 @@ seaf_controller_init (SeafileController
          g_free (topdir);
      }
  
@@ -66,39 +50,6 @@
      ctl->logdir = logdir;
  
      if (read_seafdav_config() < 0) {
---- a/python/seaserv/service.py
-+++ b/python/seaserv/service.py
-@@ -32,11 +32,17 @@ CCNET_CONF_PATH = _load_path_from_env('C
- SEAFILE_CONF_DIR = _load_path_from_env('SEAFILE_CONF_DIR')
- SEAFILE_CENTRAL_CONF_DIR = _load_path_from_env('SEAFILE_CENTRAL_CONF_DIR', check=False)
- SEAFILE_RPC_PIPE_PATH = _load_path_from_env ("SEAFILE_RPC_PIPE_PATH", check=False)
-+SEAFILE_UCI_SOCKET_DIR = _load_path_from_env('SEAFILE_UCI_SOCKET_DIR', check=False)
- 
--ccnet_pipe_path = os.path.join (CCNET_CONF_PATH, 'ccnet-rpc.sock')
-+ccnet_pipe_path = os.path.join (SEAFILE_UCI_SOCKET_DIR if SEAFILE_UCI_SOCKET_DIR else CCNET_CONF_PATH, 'ccnet-rpc.sock')
- ccnet_threaded_rpc = ccnet.CcnetThreadedRpcClient(ccnet_pipe_path)
- 
--seafile_pipe_path = os.path.join(SEAFILE_RPC_PIPE_PATH if SEAFILE_RPC_PIPE_PATH else SEAFILE_CONF_DIR,
-+socket_dir = SEAFILE_CONF_DIR
-+if SEAFILE_RPC_PIPE_PATH:
-+    socket_dir = SEAFILE_RPC_PIPE_PATH
-+elif SEAFILE_UCI_SOCKET_DIR:
-+    socket_dir = SEAFILE_UCI_SOCKET_DIR
-+seafile_pipe_path = os.path.join(socket_dir,
-                                  'seafile.sock')
- seafserv_threaded_rpc = seafile.ServerThreadedRpcClient(seafile_pipe_path)
- 
---- a/scripts/check_init_admin.py
-+++ b/scripts/check_init_admin.py
-@@ -284,7 +284,7 @@ class RPC(object):
-         import ccnet
-         ccnet_dir = os.environ['CCNET_CONF_DIR']
-         central_config_dir = os.environ['SEAFILE_CENTRAL_CONF_DIR']
--        ccnet_named_pipe_path = ccnet_dir + '/' + 'ccnet-rpc.sock'
-+        ccnet_named_pipe_path = os.environ.get('SEAFILE_UCI_SOCKET_DIR', ccnet_dir) + '/' + 'ccnet-rpc.sock'
-         self.rpc_client = ccnet.CcnetThreadedRpcClient(ccnet_named_pipe_path)
- 
-     def get_db_email_users(self):
 --- a/scripts/reset-admin.sh
 +++ b/scripts/reset-admin.sh
 @@ -1,11 +1,13 @@
@@ -207,7 +158,7 @@
  seaf_controller="/usr/libexec/seafile-controller"
  
  export PATH=/usr/libexec:$PATH
-@@ -121,7 +123,7 @@ function start_seafile_server () {
+@@ -110,7 +112,7 @@ function start_seafile_server () {
  
      echo "Starting seafile server, please wait ..."
  
@@ -281,7 +232,7 @@
          self.port = 10001
          self.server_name = None
          self.ip_or_domain = None
-@@ -919,7 +919,7 @@ class CcnetConfigurator(AbstractConfigur
+@@ -912,7 +912,7 @@ class CcnetConfigurator(AbstractConfigur
  class SeafileConfigurator(AbstractConfigurator):
      def __init__(self):
          AbstractConfigurator.__init__(self)
@@ -290,7 +241,7 @@
          self.port = 12001
          self.fileserver_port = None
          self.seafile_conf = os.path.join(env_mgr.central_config_dir, 'seafile.conf')
-@@ -983,7 +983,7 @@ class SeafileConfigurator(AbstractConfig
+@@ -966,7 +966,7 @@ class SeafileConfigurator(AbstractConfig
          question = 'Where do you want to put your seafile data?'
          key = 'seafile-data'
          note = 'Please use a volume with enough free space'
@@ -299,7 +250,7 @@
          self.seafile_dir = Utils.ask_question(question,
                                                key=key,
                                                note=note,
-@@ -1204,7 +1204,7 @@ class SeahubConfigurator(AbstractConfigu
+@@ -1181,7 +1181,7 @@ class SeahubConfigurator(AbstractConfigu
              media_dir = os.path.join(env_mgr.install_path, 'seahub', 'media')
              orig_avatar_dir = os.path.join(media_dir, 'avatars')
  
@@ -308,7 +259,7 @@
              dest_avatar_dir = os.path.join(seahub_data_dir, 'avatars')
  
              if os.path.exists(dest_avatar_dir):
-@@ -1214,7 +1214,7 @@ class SeahubConfigurator(AbstractConfigu
+@@ -1191,7 +1191,7 @@ class SeahubConfigurator(AbstractConfigu
                  os.mkdir(seahub_data_dir)
  
              shutil.move(orig_avatar_dir, dest_avatar_dir)
@@ -317,7 +268,7 @@
          except Exception as e:
              Utils.error('Failed to prepare seahub avatars dir: %s' % e)
  
-@@ -1390,7 +1390,7 @@ def check_params(args):
+@@ -1367,7 +1367,7 @@ def check_params(args):
      seafile_config.fileserver_port = Utils.validate_port(fileserver_port)
  
      seafile_dir = get_param_val(args.seafile_dir, 'SEAFILE_DIR',
@@ -362,7 +313,7 @@
  
  export SEAFILE_LD_LIBRARY_PATH=${INSTALLPATH}/seafile/lib/:${INSTALLPATH}/seafile/lib64:${LD_LIBRARY_PATH}
  
-@@ -516,7 +518,7 @@ gen_seafdav_conf;
+@@ -527,7 +529,7 @@ gen_seafdav_conf;
  # -------------------------------------------
  # generate seahub/settings.py
  # -------------------------------------------
@@ -371,7 +322,7 @@
  seahub_secret_keygen=${INSTALLPATH}/seahub/tools/secret_key_generator.py
  
  if [[ ! -f ${dest_settings_py} ]]; then
-@@ -621,44 +623,44 @@ function get_seahub_admin_passwd () {
+@@ -632,44 +634,44 @@ function get_seahub_admin_passwd () {
  echo "Creating database now, it may take one minute, please wait... "
  echo
  
@@ -423,7 +374,7 @@
  seahub_sqls=${INSTALLPATH}/seahub/sql/sqlite3.sql
  if ! sqlite3 ${seahub_db} ".read ${seahub_sqls}" 2>/dev/null 1>&2; then
      echo "Failed to sync seahub database."
-@@ -671,12 +673,12 @@ echo "Done."
+@@ -682,12 +684,12 @@ echo "Done."
  
  media_dir=${INSTALLPATH}/seahub/media
  orig_avatar_dir=${INSTALLPATH}/seahub/media/avatars
@@ -551,9 +502,9 @@
  }
 --- a/server/seaf-server.c
 +++ b/server/seaf-server.c
-@@ -767,8 +767,12 @@ static void start_rpc_service (const cha
-                                      "set_server_config_boolean",
-                                      searpc_signature_int__string_string_int());
+@@ -1043,8 +1043,12 @@ static void start_rpc_service (const cha
+                                      "get_primary_id",
+                                      searpc_signature_string__string());
  
 +    const char *socket_dir = g_getenv ("SEAFILE_UCI_SOCKET_DIR");
 +
@@ -564,7 +515,7 @@
      } else {
          pipe_path = g_build_path ("/", seafile_dir, SEAFILE_RPC_PIPE_NAME, NULL);
      }
-@@ -973,8 +977,14 @@ main (int argc, char **argv)
+@@ -1249,8 +1253,14 @@ main (int argc, char **argv)
  
      if (seafile_dir == NULL)
          seafile_dir = g_build_filename (ccnet_dir, "seafile", NULL);

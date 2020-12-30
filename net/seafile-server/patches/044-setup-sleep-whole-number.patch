@@ -1,6 +1,6 @@
 --- a/scripts/setup-seafile.sh
 +++ b/scripts/setup-seafile.sh
-@@ -418,9 +418,9 @@ fi
+@@ -448,9 +448,9 @@ fi
  if [[ "${need_pause}" == "1" ]]; then
      welcome;
  fi
@@ -12,7 +12,7 @@
  
  check_existing_ccnet;
  check_existing_seafile;
-@@ -438,7 +438,7 @@ if [[ "$fileserver_port" == "" ]]; then
+@@ -468,7 +468,7 @@ if [[ "$fileserver_port" == "" ]]; then
  fi
  
  
@@ -21,12 +21,3 @@
  
  printf "\nThis is your config information:\n\n"
  
-@@ -475,7 +475,7 @@ fi
- echo
- 
- 
--sleep 0.5
-+sleep 1
- 
- # -------------------------------------------
- # Create seafile conf

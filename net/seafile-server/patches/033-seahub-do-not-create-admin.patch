@@ -1,6 +1,6 @@
 --- a/scripts/check_init_admin.py
 +++ b/scripts/check_init_admin.py
-@@ -310,7 +310,7 @@ def create_admin(email, passwd):
+@@ -298,7 +298,7 @@ def create_admin(email, passwd):
  def ask_admin_email():
      print()
      print('----------------------------------------')
@@ -9,9 +9,9 @@
      print('----------------------------------------')
      def validate(email):
          # whitespace is not allowed
-@@ -350,8 +350,15 @@ def ask_admin_password():
+@@ -337,8 +337,15 @@ def ask_admin_password():
+                               validate=validate)
  
- rpc = RPC()
  
 -def main():
 +def main(argv):
@@ -26,7 +26,7 @@
          return
  
      password_file = os.path.join(os.environ['SEAFILE_CENTRAL_CONF_DIR'], 'admin.txt')
-@@ -369,7 +376,7 @@ def main():
+@@ -356,7 +363,7 @@ def main():
  
  if __name__ == '__main__':
      try:
@@ -35,7 +35,7 @@
      except KeyboardInterrupt:
          print('\n\n\n')
          print(Utils.highlight('Aborted.'))
-@@ -379,3 +386,4 @@ if __name__ == '__main__':
+@@ -366,3 +373,4 @@ if __name__ == '__main__':
          print()
          print(Utils.highlight('Error happened during creating seafile admin.'))
          print()

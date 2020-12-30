@@ -1,8 +1,8 @@
 --- a/scripts/reset-admin.sh
 +++ b/scripts/reset-admin.sh
-@@ -51,5 +51,5 @@ export SEAFILE_CONF_DIR=${default_seafil
- export SEAFILE_CENTRAL_CONF_DIR=${central_config_dir}
+@@ -52,5 +52,5 @@ export SEAFILE_CENTRAL_CONF_DIR=${centra
  export PYTHONPATH=${INSTALLPATH}/seafile/lib/python3.6/site-packages:${INSTALLPATH}/seafile/lib64/python3.6/site-packages:${INSTALLPATH}/seahub/thirdpart:$PYTHONPATH
+ export SEAFILE_RPC_PIPE_PATH=${INSTALLPATH}/runtime
  
 -manage_py=${INSTALLPATH}/seahub/manage.py
 +manage_py=${INSTALLPATH}/seahub/manage.pyc
@@ -20,7 +20,7 @@
  errorlog=${SEAFILE_UCI_LOG_DIR-$TOPDIR/logs}/gunicorn_error.log
 --- a/scripts/setup-seafile-mysql.py
 +++ b/scripts/setup-seafile-mysql.py
-@@ -1083,7 +1083,7 @@ class SeahubConfigurator(AbstractConfigu
+@@ -1060,7 +1060,7 @@ class SeahubConfigurator(AbstractConfigu
          fp.write('# -*- coding: utf-8 -*-')
  
      def write_secret_key(self, fp):
@@ -31,7 +31,7 @@
              script,
 --- a/scripts/setup-seafile.sh
 +++ b/scripts/setup-seafile.sh
-@@ -519,7 +519,7 @@ gen_seafdav_conf;
+@@ -530,7 +530,7 @@ gen_seafdav_conf;
  # generate seahub/settings.py
  # -------------------------------------------
  dest_settings_py=${SEAFILE_UCI_CONF_DIR-$TOPDIR}/conf/seahub_settings.py

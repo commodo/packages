@@ -89,16 +89,3 @@
          self.central_config_dir = os.path.join(self.top_dir, 'conf')
          self.central_pids_dir = os.path.join(self.top_dir, 'pids')
          self.central_logs_dir = os.path.join(self.top_dir, 'logs')
---- a/scripts/setup-seafile.sh
-+++ b/scripts/setup-seafile.sh
-@@ -455,8 +455,8 @@ if [[ "${need_pause}" == "1" ]]; then
-     read dummy
- fi
- 
--ccnet_init=${INSTALLPATH}/seafile/bin/ccnet-init
--seaf_server_init=${INSTALLPATH}/seafile/bin/seaf-server-init
-+ccnet_init=/usr/libexec/ccnet-init
-+seaf_server_init=/usr/libexec/seaf-server-init
- 
- # -------------------------------------------
- # Create ccnet conf 

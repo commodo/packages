@@ -156,7 +156,7 @@
      echo
 --- a/scripts/setup-seafile-mysql.py
 +++ b/scripts/setup-seafile-mysql.py
-@@ -1557,8 +1557,7 @@ def report_success():
+@@ -1534,8 +1534,7 @@ def report_success():
  Your seafile server configuration has been finished successfully.
  -----------------------------------------------------------------
  
@@ -168,7 +168,7 @@
  If you are behind a firewall, remember to allow input/output of these tcp ports:
 --- a/scripts/setup-seafile.sh
 +++ b/scripts/setup-seafile.sh
-@@ -718,8 +718,7 @@ echo "----------------------------------
+@@ -729,8 +729,7 @@ echo "----------------------------------
  echo "Your seafile server configuration has been completed successfully." 
  echo "-----------------------------------------------------------------"
  echo 

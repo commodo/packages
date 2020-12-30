@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -167,6 +167,7 @@ else
+@@ -170,6 +170,7 @@ else
    LIB_MAC=
    MSVC_CFLAGS=
    LIB_CRYPT32=
