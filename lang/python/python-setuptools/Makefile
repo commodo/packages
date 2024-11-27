@@ -19,9 +19,14 @@ PKG_LICENSE_FILES:=LICENSE
 PKG_MAINTAINER:=Jeffery To <jeffery.to@gmail.com>
 CPE_ID:=cpe:/a:python:setuptools
 
+HOST_BUILD_DEPENDS:=python3/host
+PKG_BUILD_DEPENDS:=python3/host
+
 include ../pypi.mk
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/host-build.mk
 include ../python3-package.mk
+include ../python3-host-build.mk
 
 define Package/python3-setuptools/Default
   SECTION:=lang
