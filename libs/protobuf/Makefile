@@ -8,19 +8,17 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=protobuf
-PKG_VERSION:=3.17.3
-PKG_RELEASE:=3
+PKG_VERSION:=25.9
+PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-cpp-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/google/protobuf/releases/download/v$(PKG_VERSION)
-PKG_HASH:=51cec99f108b83422b7af1170afd7aeb2dd77d2bcbb7b6bad1f92509e9ccf8cb
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/protocolbuffers/protobuf/releases/download/v$(PKG_VERSION)
+PKG_HASH:=272989ca30fc9781e6dd35f5e9481feb79b0c5861c208667aa2fa5503ee0eda0
 
 PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
 PKG_LICENSE:=BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE
 PKG_CPE_ID:=cpe:/a:google:protobuf
-
-CMAKE_SOURCE_SUBDIR:=cmake
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
@@ -30,8 +28,8 @@ define Package/protobuf/Default
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=A structured data encoding library
-  URL:=https://github.com/google/protobuf
-  DEPENDS:=+zlib +libpthread +libatomic +libstdcpp
+  URL:=https://github.com/protocolbuffers/protobuf
+  DEPENDS:=+zlib +libpthread +libatomic +libstdcpp +abseil-cpp
 endef
 
 define Package/protobuf
@@ -67,6 +65,7 @@ endef
 CMAKE_HOST_OPTIONS += \
 	-Dprotobuf_BUILD_PROTOC_BINARIES=ON \
 	-Dprotobuf_BUILD_TESTS=OFF \
+	-Dprotobuf_ABSL_PROVIDER=package \
 	-DBUILD_SHARED_LIBS=OFF \
 	-DCMAKE_INSTALL_LIBDIR=lib
 
@@ -74,6 +73,7 @@ CMAKE_OPTIONS += \
 	-Dprotobuf_BUILD_PROTOC_BINARIES=ON \
 	-Dprotobuf_BUILD_TESTS=OFF \
 	-Dprotobuf_WITH_ZLIB=ON \
+	-Dprotobuf_ABSL_PROVIDER=package \
 	-DBUILD_SHARED_LIBS=ON
 
 TARGET_LDFLAGS += -latomic
