@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libtheora
 PKG_VERSION:=1.2.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://downloads.xiph.org/releases/theora/
 PKG_HASH:=ebdf77a8f5c0a8f7a9e42323844fa09502b34eb1d1fece7b5f54da41fe2122ec
@@ -49,7 +49,7 @@ CONFIGURE_ARGS += \
 	--disable-vorbistest \
 	--disable-sdltest
 
-ifneq ($(findstring armeb,$(CONFIG_ARCH)),)
+ifneq ($(findstring arm,$(CONFIG_ARCH)),)
 CONFIGURE_ARGS += --disable-asm
 endif
 
