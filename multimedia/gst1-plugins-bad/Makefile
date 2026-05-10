@@ -156,7 +156,6 @@ MESON_ARGS += \
 	-Dvideoparsers=$(if $(CONFIG_PACKAGE_gst1-mod-videoparsersbad),en,dis)abled \
 	$(call GST_COND_SELECT,videosignal) \
 	$(call GST_COND_SELECT,vmnc) \
-	-Dy4m=$(if $(CONFIG_PACKAGE_gst1-mod-y4mdec),en,dis)abled \
 	\
 	-Dopencv=disabled \
 	-Dwayland=$(if $(CONFIG_PACKAGE_libgst1gl),en,dis)abled \
@@ -434,7 +433,7 @@ $(eval $(call GstBuildPlugin,videoframe_audiolevel,videoframe_audiolevel support
 $(eval $(call GstBuildPlugin,videoparsersbad,videoparsersbad support,codecparsers,,))
 $(eval $(call GstBuildPlugin,videosignal,videosignal support,,,))
 $(eval $(call GstBuildPlugin,vmnc,vmnc support,,,))
-$(eval $(call GstBuildPlugin,y4mdec,y4mdec support,,,))
+#$(eval $(call GstBuildPlugin,y4mdec,y4mdec support,,,))
 
 $(eval $(call GstBuildPlugin,bluez,bluez support,,,+bluez-libs))
 #$(eval $(call GstBuildPlugin,bz2,bzip2 support,,,+libbz2))
