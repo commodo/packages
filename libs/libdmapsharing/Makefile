@@ -11,7 +11,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libdmapsharing
 PKG_VERSION:=3.9.13
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=libdmapsharing-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.flyn.org/projects/libdmapsharing/
@@ -47,10 +47,10 @@ CONFIGURE_ARGS += \
 	--disable-introspection
 
 define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/include/
+	$(INSTALL_DIR) $(1)/usr/include/libdmapsharing
 	$(CP) \
-		$(PKG_INSTALL_DIR)/usr/include/libdmapsharing-4.0/ \
-		$(1)/usr/include/
+		$(PKG_INSTALL_DIR)/usr/include/libdmapsharing-4.0/* \
+		$(1)/usr/include/libdmapsharing/
 	$(INSTALL_DIR) $(1)/usr/lib/
 	$(CP) \
 		$(PKG_INSTALL_DIR)/usr/lib/*.so* \
