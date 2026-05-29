@@ -12,4 +12,8 @@ case "$1" in
 	chicken-scheme-interpreter)
 		csi -version 2>&1 | grep -F "$2"
 		;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac

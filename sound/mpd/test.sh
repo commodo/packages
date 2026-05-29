@@ -39,4 +39,8 @@ case "$1" in
 mpd-full|mpd-mini)
 	_mpd_test "$@"
 	;;
+*)
+	echo "Unsupported test target: $1" >&2
+	exit 1
+	;;
 esac

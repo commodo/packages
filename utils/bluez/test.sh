@@ -15,4 +15,8 @@ case "$1" in
 		# gatttool does not implement --version; just verify it is present
 		[ -x /usr/bin/gatttool ] || exit 1
 		;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac

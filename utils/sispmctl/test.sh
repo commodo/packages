@@ -8,4 +8,8 @@ case "$1" in
 	libsispmctl)
 		ls /usr/lib/libsispmctl.so.* > /dev/null
 		;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac

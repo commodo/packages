@@ -47,4 +47,8 @@ imagemagick)
 	rm -f /tmp/im-white.png /tmp/im-white.jpg /tmp/im-small.png \
 	      /tmp/im-red.png /tmp/im-white.bmp /tmp/im-gray.png /tmp/im-comp.png
 	;;
+*)
+	echo "Unsupported test target: $1" >&2
+	exit 1
+	;;
 esac

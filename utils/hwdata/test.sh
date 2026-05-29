@@ -13,4 +13,8 @@ case "$1" in
 		test -s /usr/share/hwdata/pnp.ids
 		grep -q "PNP" /usr/share/hwdata/pnp.ids
 		;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac

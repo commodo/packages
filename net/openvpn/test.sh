@@ -7,4 +7,8 @@ case "$1" in
 	"openvpn-openssl"|"openvpn-wolfssl")
 		openvpn --version | grep "$2.*SSL (OpenSSL)"
 		;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac

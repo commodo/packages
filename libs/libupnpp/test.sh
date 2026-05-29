@@ -8,4 +8,8 @@ libupnpp)
 	}
 	echo "libupnpp.so: OK"
 	;;
+*)
+	echo "Unsupported test target: $1" >&2
+	exit 1
+	;;
 esac

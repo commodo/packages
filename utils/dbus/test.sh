@@ -7,4 +7,8 @@ case "$1" in
 			[ -x "/usr/bin/$bin" ] || exit 1
 		done
 		;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac

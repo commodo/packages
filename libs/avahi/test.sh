@@ -184,4 +184,8 @@ avahi-utils)
 		echo "avahi-browse --terminate --all: ran" || \
 		echo "avahi-browse --terminate --all: no output (daemon not running)"
 	;;
+*)
+	echo "Unsupported test target: $1" >&2
+	exit 1
+	;;
 esac

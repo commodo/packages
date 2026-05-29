@@ -14,4 +14,8 @@ lttng-ust)
 	}
 	echo "liblttng-ust-tracepoint: OK"
 	;;
+*)
+	echo "Unsupported test target: $1" >&2
+	exit 1
+	;;
 esac

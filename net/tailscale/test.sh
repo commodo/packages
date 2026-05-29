@@ -7,4 +7,8 @@ case "$1" in
 	tailscaled)
 		tailscaled -version | grep "$2"
 		;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac

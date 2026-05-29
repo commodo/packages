@@ -8,4 +8,8 @@ erlang)
 		-s init stop 2>&1 | \
 		grep -qF "OTP ${otp_major}"
 	;;
+*)
+	echo "Unsupported test target: $1" >&2
+	exit 1
+	;;
 esac

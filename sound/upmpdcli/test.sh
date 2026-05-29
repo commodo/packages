@@ -43,4 +43,8 @@ upmpdcli)
 	head -5 "$tmplog"
 	rm -f "$tmplog"
 	;;
+*)
+	echo "Unsupported test target: $1" >&2
+	exit 1
+	;;
 esac

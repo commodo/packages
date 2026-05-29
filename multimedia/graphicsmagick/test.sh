@@ -38,4 +38,8 @@ graphicsmagick)
 	rm -f /tmp/gm-white.png /tmp/gm-white.jpg /tmp/gm-small.png \
 	      /tmp/gm-red.png /tmp/gm-text.png /tmp/gm-composite.png
 	;;
+*)
+	echo "Unsupported test target: $1" >&2
+	exit 1
+	;;
 esac

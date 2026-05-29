@@ -7,4 +7,8 @@ case "$1" in
 	libfuse3)
 		ls /usr/lib/libfuse3.so.* > /dev/null
 		;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac

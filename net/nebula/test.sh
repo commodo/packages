@@ -5,4 +5,8 @@ case "$1" in
 	nebula-proto) grep 'readonly PKG_VERSION=' /lib/netifd/proto/nebula.sh 2>&1 | grep "$2"; return $?;;
 #	nebula-service) /etc/init.d/nebula version 2>&1 | grep "$2"; return $?;;
 	nebula-service) return 0;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac

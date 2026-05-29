@@ -14,4 +14,8 @@ xfs-admin)
 xfs-growfs)
 	xfs_growfs --help 2>&1 | grep -qi "xfs_growfs\|usage"
 	;;
+*)
+	echo "Unsupported test target: $1" >&2
+	exit 1
+	;;
 esac

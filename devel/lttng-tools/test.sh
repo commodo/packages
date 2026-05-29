@@ -16,4 +16,8 @@ lttng-tools)
 	}
 	echo "liblttng-ctl: OK"
 	;;
+*)
+	echo "Unsupported test target: $1" >&2
+	exit 1
+	;;
 esac

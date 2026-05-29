@@ -6,4 +6,8 @@ case "$1" in
 		fio --name=sanity --ioengine=null --rw=randwrite --size=64k \
 			--bs=4k --iodepth=1 --numjobs=1 2>&1 | grep -qF "sanity"
 		;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac

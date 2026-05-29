@@ -7,4 +7,8 @@ case "$1" in
 		# List fonts; empty output is valid when no fonts are present
 		fc-list > /dev/null
 		;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac

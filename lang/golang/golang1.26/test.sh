@@ -4,6 +4,10 @@
 
 case "$1" in
 	golang*doc|golang*misc|golang*src|golang*tests) exit ;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac
 
 cat <<'EOF' > hello.go

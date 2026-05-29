@@ -10,4 +10,8 @@ whiptail)
 	whiptail --version | grep -Fx "whiptail (newt): $PKG_VERSION"
 	;;
 
+*)
+	echo "Unsupported test target: $1" >&2
+	exit 1
+	;;
 esac

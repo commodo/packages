@@ -6,4 +6,8 @@ case "$1" in
 		[ -x /usr/bin/zstdgrep ] || exit 1
 		[ -x /usr/bin/zstdless ] || exit 1
 		;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac

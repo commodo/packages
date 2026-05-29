@@ -11,6 +11,11 @@ case "$1" in
             fi
             i=$( expr $i + 1 )
         done
+		;;
+	*)
+		echo "Unsupported test target: $1" >&2
+		exit 1
+		;;
 esac
 
 exit 0

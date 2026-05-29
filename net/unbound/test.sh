@@ -37,4 +37,8 @@ unbound-host)
 	[ -x /usr/sbin/unbound-host ] || { echo "FAIL: unbound-host not executable"; exit 1; }
 	unbound-host -h 2>&1 | grep -qi "unbound\|usage\|option"
 	;;
+*)
+	echo "Unsupported test target: $1" >&2
+	exit 1
+	;;
 esac
