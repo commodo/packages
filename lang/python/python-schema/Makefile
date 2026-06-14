@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-schema
 PKG_VERSION:=0.7.8
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_MAINTAINER:=Josef Schlehofer <pepe.schlehofer@gmail.com> 
 
 PYPI_NAME:=schema
@@ -25,7 +25,7 @@ define Package/python3-schema
   SUBMENU:=Python
   URL:=https://github.com/keleshev/schema
   TITLE:=Simple data validation library
-  DEPENDS:=+python3-light +python3-contextlib2
+  DEPENDS:=+python3-light
 endef
 
 define Package/python3-schema/description
