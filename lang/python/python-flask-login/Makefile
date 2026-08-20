@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-flask-login
 PKG_VERSION:=0.6.3
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_NAME:=Flask-Login
 PYTHON3_PKG_WHEEL_NAME:=flask_login
@@ -30,7 +30,7 @@ define Package/python3-flask-login
   SUBMENU:=Python
   TITLE:=User authentication and session management for Flask
   URL:=https://github.com/maxcountryman/flask-login
-  DEPENDS:=+python3-light +python3-urllib +python3-flask +python3-werkzeug
+  DEPENDS:=+python3-light +python3-urllib +python3-flask
 endef
 
 define Package/python3-flask-login/description
