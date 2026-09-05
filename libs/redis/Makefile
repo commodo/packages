@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=redis
-PKG_VERSION:=8.8.0
+PKG_VERSION:=8.10.1
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=https://download.redis.io/releases/
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_HASH:=88422181efb0c9c0abba332e3e391d409e1e13714b838931669235e5796f704b
+PKG_HASH:=60166c95ab7aedaa9dfe516de685be0a4dd87be95ded59ba429df14c13f1b663
 
 PKG_MAINTAINER:=Alexandru Ardelean <ardeleanalex@gmail.com>
 # Redis 8.x is tri-licensed: RSALv2 / SSPLv1 / AGPL-3.0. Pick AGPL-3.0
@@ -87,7 +87,12 @@ define Build/Compile
 	$(MAKE) -C "$(PKG_BUILD_DIR)/deps/hiredis" static $(MAKE_FLAGS)  $(MAKE_VARS)
 	$(MAKE) -C "$(PKG_BUILD_DIR)/deps/linenoise" $(MAKE_FLAGS)  $(MAKE_VARS)
 	$(MAKE) -C "$(PKG_BUILD_DIR)/deps/lua" posix $(MAKE_FLAGS)  $(MAKE_VARS) AR="${AR} ru"
-	$(call Build/Compile/Default)
+	# redis 8.9+ made the default make goal build the core plus every bundled
+	# module (redisbloom, redisearch, redisjson, redistimeseries), which fail
+	# here ("common.mk: recipe commences before first target"). Pass the "core"
+	# argument so scripts/build.sh builds src/ only, matching the module-less
+	# build 8.8.0 produced by default.
+	$(MAKE) $(PKG_JOBS) -C "$(PKG_BUILD_DIR)" build core $(MAKE_FLAGS) $(MAKE_VARS)
 endef
 
 define Package/redis-server/install

@@ -16,7 +16,7 @@ Signed-off-by: Alexandru Ardelean <alex@shruggie.ro>
 
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -393,7 +393,7 @@ REDIS_CHECK_RDB_NAME=redis-check-rdb$(PR
+@@ -410,7 +410,7 @@ REDIS_CHECK_RDB_NAME=redis-check-rdb$(PR
  REDIS_CHECK_AOF_NAME=redis-check-aof$(PROG_SUFFIX)
  ALL_SOURCES=$(sort $(patsubst %.o,%.c,$(REDIS_SERVER_OBJ) $(REDIS_VEC_SETS_OBJ) $(REDIS_CLI_OBJ) $(REDIS_BENCHMARK_OBJ)))
  
