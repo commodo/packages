@@ -4,7 +4,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-platformio
 PKG_VERSION:=6.2.0
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PYPI_NAME:=platformio
 PKG_HASH:=880ea06734908b3d6c0a96598ca7be572c2b6755585784aa63a201bbdfb8c59d
@@ -23,6 +23,10 @@ HOST_BUILD_DEPENDS:= \
 	python-pyelftools/host \
 	python-pyserial/host \
 	python-requests/host \
+	python-certifi/host \
+	python-charset-normalizer/host \
+	python-idna/host \
+	python-urllib3/host \
 	python-semantic-version/host \
 	python-setuptools/host \
 	python-starlette/host \
