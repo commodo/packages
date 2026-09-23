@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alexandru Ardelean <alex@shruggie.ro>
+Date: Wed, 23 Sep 2026 12:00:00 +0300
+Subject: [PATCH] libav: read the channel count from ch_layout on FFmpeg 6+
+
+AVCodecParameters.channels was deprecated in FFmpeg 5.1 in favour of
+ch_layout.nb_channels and removed outright in FFmpeg 7, so building
+against a current FFmpeg fails with "'AVCodecParameters' has no member
+named 'channels'".
+
+Upstream-Status: Inappropriate [OpenWrt builds one FFmpeg, currently 9.0.1]
+
+Signed-off-by: Alexandru Ardelean <alex@shruggie.ro>
+---
+--- a/libav.h
++++ b/libav.h
+@@ -174,7 +174,7 @@ lav_get_interlaced(AVStream *s)
+ #define lav_codec_tag(s) s->codecpar->codec_tag
+ #define lav_sample_rate(s) s->codecpar->sample_rate
+ #define lav_bit_rate(s) s->codecpar->bit_rate
+-#define lav_channels(s) s->codecpar->channels
++#define lav_channels(s) s->codecpar->ch_layout.nb_channels
+ #define lav_width(s) s->codecpar->width
+ #define lav_height(s) s->codecpar->height
+ #define lav_profile(s) s->codecpar->profile
